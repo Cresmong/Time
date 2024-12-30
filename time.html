@@ -6,59 +6,126 @@
     <title>Countdown To Seeing Each Other</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f9;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+            color: #fff;
+            overflow: hidden;
         }
+
         #timer {
             text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
+
         h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
+
         #countdown {
-            font-size: 2rem;
-            color: #333;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b81;
+            transform: rotate(-45deg);
+            animation: float 4s infinite ease-in-out;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b81;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(-45deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-200px) rotate(-45deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-400px) rotate(-45deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Hearts -->
+    <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="heart" style="left: 30%; animation-delay: 1s;"></div>
+    <div class="heart" style="left: 50%; animation-delay: 2s;"></div>
+    <div class="heart" style="left: 70%; animation-delay: 3s;"></div>
+    <div class="heart" style="left: 90%; animation-delay: 4s;"></div>
+
+    <!-- Timer -->
     <div id="timer">
-        <h1> Countdown To Seeing Each Other</h1>
+        <h1>Countdown To Seeing Each Other</h1>
         <div id="countdown"></div>
     </div>
- 
+
     <script>
         function startCountdown(targetDate) {
             const countdownElement = document.getElementById('countdown');
- 
+
             function updateCountdown() {
                 const now = new Date().getTime();
                 const timeLeft = targetDate - now;
- 
+
                 if (timeLeft <= 0) {
-                    countdownElement.innerHTML = "Time's up!";
+                    countdownElement.innerHTML = "Time's up! 💖";
                     clearInterval(interval);
                     return;
                 }
- 
+
                 const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
- 
-                countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                countdownElement.innerHTML = `
+                    ${days}d ${hours}h ${minutes}m ${seconds}s 💕
+                `;
             }
- 
+
             const interval = setInterval(updateCountdown, 1000);
             updateCountdown();
         }
- 
+
         // Set the target date and time for the countdown
         const targetDate = new Date("2025-01-10T12:00:00").getTime();
         startCountdown(targetDate);
